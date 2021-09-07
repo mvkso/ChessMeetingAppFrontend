@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { render } from '@testing-library/react';
+import React, {Component} from 'react';
+import {BrowserRouter, Route, Switch, useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
 
-function App() {
+import "./App.css"
+
+
+import Authentication from "./scripts/authentication";
+import Routes from "./Routes/Routes";
+
+
+function App(){
+
+  const [loggedUser, setLoggedUser] = useState(null);
+
+  useEffect(() => {
+    setLoggedUser(Authentication.getCurrentUser());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        {/*<Routes/>*/}
+      </div>
+
   );
+
+
 }
 
 export default App;
