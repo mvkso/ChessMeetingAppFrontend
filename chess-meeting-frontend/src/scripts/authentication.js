@@ -16,7 +16,7 @@ const authenticationHeader = () => {
 }
 
 
-const register = (email, password, confirmedPassword, name, lastName, phoneNumber, region) => {
+const register = (email, password, confirmedPassword, name, lastName, phoneNumber, userType) => {
     return axios.post(API_URL + "signup", {
         email,
         password,
@@ -24,26 +24,25 @@ const register = (email, password, confirmedPassword, name, lastName, phoneNumbe
         name,
         lastName,
         phoneNumber,
-        region
+        userType
     }, {headers: authenticationHeader()});
 };
 
-const update = (employeeId,oldEmail,newEmail,  firstName, lastName, oldPhoneNumber, newPhoneNumber, region) => {
+const update = (employeeId,oldEmail,newEmail,  firstName, lastName, oldPhoneNumber, newPhoneNumber) => {
 
-    return axios.put(`http://localhost:8080/employee/updateEmployee/${employeeId}`, {
+    return axios.put(`http://localhost:8080/${employeeId}`, {
         oldEmail,
         newEmail,
         firstName,
         lastName,
         oldPhoneNumber,
         newPhoneNumber,
-        region
     },{headers: authenticationHeader()});
 };
 
 const changePassword = (userId,oldPassword,newPassword, confirmedNewPassword) => {
 
-    return axios.put(`http://localhost:8080/employee/changePassword/${userId}`, {
+    return axios.put(`http://localhost:8080/userDetails/${userId}/password`, {
         oldPassword,
         newPassword,
         confirmedNewPassword
@@ -65,7 +64,7 @@ const updatePostfix = (postfixId,oldPostfix,newPostfix) => {
 };
 
 const updatePhoneNumber = (userId, newPhoneNumber) => {
-    return axios.put(`http://localhost:8080/employee/updateEmployee/phoneNumber/${userId}`,
+    return axios.put(`http://localhost:8080/userDetails/${userId}password`,
         {
             newPhoneNumber
         },{headers: authenticationHeader()});
@@ -73,7 +72,7 @@ const updatePhoneNumber = (userId, newPhoneNumber) => {
 
 
 const updateEmail = (userId, email) => {
-    return axios.put(`http://localhost:8080/user/updateEmail/${userId}`,
+    return axios.put(`http://localhost:8080/users/${userId}/email`,
         {
             email
         },{headers: authenticationHeader()});
@@ -87,7 +86,7 @@ const updateRegion = (userId, region) => {
 };
 
 const updateNameOrLastName = (userId, name, lastName) => {
-    return axios.put(`http://localhost:8080/employee/updateEmployee/updateNameOrLastName/${userId}`,
+    return axios.put(`http://localhost:8080/userDetails/${userId}/nameOrLastName`,
         {
             name,
             lastName
