@@ -60,13 +60,14 @@ const SignUp = (props) => {
     };
 
     return(
-        <section className="signin-section">
+        <section className="signin-section" >
+
             <div class="login-page">
                 <div className="login-banner">
 
                 </div>
                 <div class="form-login">
-                    <Title>Sign in</Title>
+                    <Title style={{fontFamily: 'Major Mono Display',color: "rgb(25,100,126)", fontWeight: "bold"}}>chess meeting app</Title>
                     <div style={{ marginBottom: 10 }}>
                         {loggedIn !== null && loggedIn === false && <Alert severity="error">{message}</Alert>}
                     </div>
@@ -96,8 +97,8 @@ const SignUp = (props) => {
                         />
                         <br/>
                         <br/>
-                        <Button type='submit'>login</Button>
-                        <p class="message" >WELCOME TO CHESS MEETING PORTAL</p>
+                        <Button type='submit' >login</Button>
+                        <p class="message" >Chess Meeting App - Maksymowicz Inc.</p>
                     </form>
 
                 </div>
