@@ -6,6 +6,7 @@ import {TextField} from "@material-ui/core";
 import Title from "../../Title";
 import Button from "@material-ui/core/Button";
 import Cards from "./Cards";
+import {black} from "material-ui/styles/colors";
 
 const HomePage = () => {
 
@@ -27,7 +28,7 @@ const HomePage = () => {
             <br/>
             <div className="home-redirection-container" style={{display: "flex", flexDirection: "row"}}>
                 <div className="title-form-div">
-                    <Title style={{fontFamily: 'Major Mono Display',color: "rgb(25,100,126)", fontWeight: "bold"}}>find a tournament in your city</Title>
+                    <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>find a tournament in your city</Title>
                     <br/>
                     <br/>
                     <form className="search-form" onSubmit={handleSearch}>
@@ -44,7 +45,7 @@ const HomePage = () => {
                     </form>
                 </div>
                 <div className="title-form-div">
-                    <Title style={{fontFamily: 'Major Mono Display',color: "rgb(25,100,126)", fontWeight: "bold"}}>create one by yourself</Title>
+                    <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>create one by yourself</Title>
                     <br/>
                     <br/>
                     <form className="search-form">
@@ -53,7 +54,7 @@ const HomePage = () => {
                 </div>
 
                 <div className="title-form-div">
-                    <Title style={{fontFamily: 'Major Mono Display',color: "rgb(25,100,126)", fontWeight: "bold"}}>see most recent tournaments</Title>
+                    <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>see most recent tournaments</Title>
                     <br/>
                     <br/>
                 </div>

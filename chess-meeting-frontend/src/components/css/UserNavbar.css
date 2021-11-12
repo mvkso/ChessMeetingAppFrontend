@@ -1,0 +1,71 @@
+body {
+  font-family: "Comic Sans MS", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #dfe6e9;
+  width: 100vw;
+}
+
+ul {
+  margin: 0;
+  padding: 1em;
+}
+ul li {
+  list-style: none;
+}
+ul li a {
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+  -webkit-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
+  font-family: "Major Mono Display", sans-serif;
+  font-weight: bold;
+}
+ul li a:hover {
+  background-color: white;
+  color: black;
+}
+ul li a .contact {
+  border: 1px solid white;
+}
+
+.nav-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: linear-gradient(to bottom, #4528b0, #0a86f3);
+  color: white;
+}
+.nav-user .slam-left {
+  margin-right: auto;
+}
+
+@media all and (max-width: 500px) {
+  ul {
+    padding: 0;
+  }
+  ul li {
+    width: 100%;
+  }
+  ul li a {
+    display: block;
+    text-align: center;
+  }
+
+  .nav-user {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  .nav-user .slam-left {
+    margin-right: 0;
+  }
+}
+
+/*# sourceMappingURL=UserNavbar.css.map */

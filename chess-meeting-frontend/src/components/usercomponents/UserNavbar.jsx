@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import "../css/UserNavbar.scss";
 
+import HomeIcon from '@mui/icons-material/Home';
+
+
 
 import authentication from "../../scripts/authentication";
 

@@ -6,6 +6,7 @@ import Title from "../Title";
 import {Alert, Autocomplete} from "@material-ui/lab";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import CheckIcon from '@mui/icons-material/Check';
 
 const SignUp = (props) => {
 
@@ -19,6 +20,7 @@ const SignUp = (props) => {
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
     const [loggedIn, setLoggedIn] = useState(null);
+    const [formToggle, setFormToggle] = useState(true);
 
 
 
@@ -26,6 +28,11 @@ const SignUp = (props) => {
         const email = e.target.value;
         setEmail(email);
     };
+
+    const onChangeState = (e) => {
+        const state = !formToggle
+        setFormToggle(state);
+    }
 
     const onChangePassword = (e) => {
         const password = e.target.value;
@@ -62,15 +69,19 @@ const SignUp = (props) => {
     return(
         <section className="signin-section" >
 
-            <div class="login-page">
+            <div class="login-page" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "-2em"}}>
+                <Title style={{fontFamily: 'Major Mono Display',color: "rgb(1,56,72)",
+                    fontWeight: "bold", fontSize: "2.5em", paddingBottom: "1em"}}>
+                   chess meeting app</Title>
                 <div className="login-banner">
 
                 </div>
                 <div class="form-login">
-                    <Title style={{fontFamily: 'Major Mono Display',color: "rgb(25,100,126)", fontWeight: "bold"}}>chess meeting app</Title>
+
                     <div style={{ marginBottom: 10 }}>
                         {loggedIn !== null && loggedIn === false && <Alert severity="error">{message}</Alert>}
                     </div>
+                    {formToggle === true ?
                     <form class="login-form" style={{display: "flex", flexDirection: "column"}} onSubmit={handleLogin}>
                         <TextField
                             id="standard-text"
@@ -80,7 +91,6 @@ const SignUp = (props) => {
                                 shrink: true,
                             }}
                             onChange={onChangeEmail}
-
 
                         />
                         <br/>
@@ -98,8 +108,63 @@ const SignUp = (props) => {
                         <br/>
                         <br/>
                         <Button type='submit' >login</Button>
-                        <p class="message" >Chess Meeting App - Maksymowicz Inc.</p>
+                        <p className="message">Don't have an account yet? <a onClick={onChangeState}>Register</a></p>
                     </form>
+                        :
+                    <form class="register-form" style={{display: "flex", flexDirection: "column"}}>
+                        <TextField
+                            id="standard-text"
+                            label="Type email"
+                            type="text"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            // onChange={}
+
+                        />
+                        <TextField
+                            id="standard-text"
+                            label="Type name"
+                            type="text"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            // onChange={}
+
+                        />
+                        <TextField
+                            id="standard-text"
+                            label="Type last name"
+                            type="text"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            // onChange={}
+
+                        />
+                        <TextField
+                            id="standard-text"
+                            label="Type password"
+                            type="password"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            // onChange={}
+
+                        />
+                        <TextField
+                            id="standard-text"
+                            label="Confirm password"
+                            type="password"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            // onChange={}
+                        />
+                        <Button type='submit' >register</Button>
+                        <p className="message">You have already an account? <a onClick={onChangeState}>Login</a></p>
+                    </form>
+                    }
 
                 </div>
             </div>

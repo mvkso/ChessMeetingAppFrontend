@@ -1,4 +1,9 @@
-.App {
+$main-bg: #dfe6e9;
+$main-color: rgb(69, 40, 176);
+$secondary-color:rgb(25,100,126) ;
+$additional-color: #fcfcfc;
+
+.App{
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -6,6 +11,5 @@
   background-color: rgba(165, 165, 245, 0.27);
   height: 100vh;
   width: 100vw;
-}
 
-/*# sourceMappingURL=App.css.map */
+}

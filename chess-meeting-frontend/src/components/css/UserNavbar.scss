@@ -1,5 +1,5 @@
 $main-bg: #dfe6e9;
-$main-color: rgba(40,175,176,1);
+$main-color: rgb(69, 40, 176);
 $secondary-color:rgb(25,100,126) ;
 $additional-color: #fcfcfc;
 
@@ -29,6 +29,7 @@ ul {
       transition: background-color .5s, color .5s;
       font-family: 'Major Mono Display', sans-serif;
       font-weight: bold;
+
       &:hover {
         background-color: white;
         color: black;

@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Router, Switch, useHistory} from "react-router-dom
 import {useEffect, useState} from "react";
 import Routes from "./Routes/Routes"
 
-import "./App.css"
+import "./App.scss"
 
 
 import Authentication from "./scripts/authentication";
