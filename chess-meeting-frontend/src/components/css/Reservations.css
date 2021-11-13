@@ -103,4 +103,58 @@ h1 {
   color: #dd5;
 }
 
+.rwd3-table {
+  background: #3f51b5;
+  color: #fff;
+  border-radius: 0.4em;
+  overflow: hidden;
+  position: inherit;
+}
+.rwd3-table tr {
+  border-color: #46637f;
+}
+.rwd3-table th, .rwd3-table td {
+  margin: 0.5em 1em;
+}
+@media (min-width: 480px) {
+  .rwd3-table th, .rwd3-table td {
+    padding: 1em !important;
+  }
+}
+.rwd3-table th, .rwd3-table td:before {
+  color: white;
+}
+
+.rwd-table-search {
+  width: 80vw;
+  margin: 1em 0;
+  background: #024283;
+  border: #1a1a1a;
+  color: #fff;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+.rwd-table-search tr {
+  border-color: #46637f;
+}
+.rwd-table-search th, .rwd-table-search td {
+  margin: 0.5em 1em;
+}
+@media (min-width: 480px) {
+  .rwd-table-search th, .rwd-table-search td {
+    padding: 1em !important;
+  }
+}
+.rwd-table-search th, .rwd-table-search td:before {
+  color: #dd5;
+}
+
+.search-section {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+}
+
 /*# sourceMappingURL=Reservations.css.map */

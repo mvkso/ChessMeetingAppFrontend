@@ -7,9 +7,11 @@ import Title from "../../Title";
 import Button from "@material-ui/core/Button";
 import Cards from "./Cards";
 import {black} from "material-ui/styles/colors";
+import MyReservations from "./MyReservations";
 
 const HomePage = () => {
 
+    const history = useHistory();
     const [searchInput, setSearchInput] = useState("")
 
     const onChangeSearchInput = (e) => {
@@ -18,7 +20,7 @@ const HomePage = () => {
     };
 
     const handleSearch = (e) => {
-
+        history.push('/search');
     }
 
     return(
@@ -55,8 +57,27 @@ const HomePage = () => {
 
                 <div className="title-form-div">
                     <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>see most recent tournaments</Title>
-                    <br/>
-                    <br/>
+                    <table className="rwd3-table" style={{fontFamily: 'Major Mono Display'}}>
+                        <tr>
+                            <th>name</th>
+                            <th>place</th>
+                            <th>chuj</th>
+                            <th>chuj</th>
+                            <th>kargul</th>
+                        </tr>
+                        <tr>
+                            <td data-th="Movie Title">sram na meksykana</td>
+                            <td data-th="Genre">us17</td>
+                            <td data-th="Year">184010</td>
+                            <td data-th="Gross">$chuj</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Movie Title">sram na meksykana</td>
+                            <td data-th="Genre">us17</td>
+                            <td data-th="Year">184010</td>
+                            <td data-th="Gross">$chuj</td>
+                        </tr>
+                    </table>
                 </div>
 
 

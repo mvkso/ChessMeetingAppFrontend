@@ -121,3 +121,54 @@ h1 {
     color: #dd5;
   }
 }
+
+.rwd3-table {
+  background: #3f51b5;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  position: inherit;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) {
+      padding: 1em !important;
+    }
+  }
+  th, td:before {
+    color: white;
+  }
+}
+
+
+.rwd-table-search {
+  width: 80vw;
+  margin: 1em 0;
+  background: #024283;
+  border: #1a1a1a;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) {
+      padding: 1em !important;
+    }
+  }
+  th, td:before {
+    color: #dd5;
+  }
+}
+
+.search-section{
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+}

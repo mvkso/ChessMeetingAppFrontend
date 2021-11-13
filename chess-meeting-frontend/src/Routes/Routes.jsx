@@ -10,6 +10,8 @@ import HomePage from "../components/usercomponents/HomePage";
 import CalendarPage from "../components/usercomponents/CalendarPage";
 import MyReservations from "../components/usercomponents/MyReservations";
 import AccountPage from "../components/usercomponents/AccountPage";
+import SearchPage from "../components/usercomponents/SearchPage";
+import AdminNavbar from "../components/admincomponents/AminNavbar";
 
 import NotFound from "./NotFound";
 
@@ -57,7 +59,20 @@ const Routes = () => {
                         <AccountPage/>
                     </Route>
 
+                    <Route exact path="/search">
+                        <UserNavbar/>
+                        <SearchPage/>
+                    </Route>
+
+                    <Route exact path="/adminPanel">
+                        <AdminNavbar/>
+                    </Route>
+
+
+
                     <Route component={NotFound}/>
+
+
 
 
 
