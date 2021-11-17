@@ -19,20 +19,21 @@ const AccountPage = () => {
     const context = useContext(ThemeContext);
     const classes = context.classes;
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [region, setRegion] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [rank, setRank] = useState("");
+    const [city, setCity] = useState("")
     const[toggleEmail, setToggleEmail] = useState(false);
-    const[togglePassword, setTogglePassword] = useState(false);
-    const[toggleRegion, setToggleRegion] = useState(false);
-    const [emailChanged, setEmailChanged] = useState(null);
-    const [regionChanged, setRegionChanged] = useState(null);
+    const[toggleFirstName, setToggleFirstName] = useState(false);
+    const[toggleLastName, setToggleLastName] = useState(false);
+    const[toggleRank, setToggleRank] = useState(false);
+    const[toggleCity, setToggleCity] = useState(false);
+
+
+
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
-    const [newUser, setNewUser] = useState([]);
-    const [regions, setRegions] = useState([]);
-    const [postfixesData, setPostfixesData] = useState([]);
-    const [postfix, setPostfix] = useState("");
     const { register, handleSubmit, errors, setError, reset } = useForm();
 
 
@@ -64,13 +65,26 @@ const AccountPage = () => {
         setEmail(newEmail);
     };
 
+    const onChangeFirstName = (e) => {
+        const temp = e.target.value;
+        setFirstName(temp);
+    };
 
-    const validatePostfix = () => {
-        if(postfix===null){
-            return false;
-        }
-        return true;
-    }
+    const onChangeLastName = (e) => {
+        const temp = e.target.value;
+        setLastName(temp);
+    };
+
+    const onChangeCity = (e) => {
+        const temp = e.target.value;
+        setCity(temp);
+    };
+
+    const onChangeRank = (e) => {
+        const temp = e.target.value;
+        setRank(temp);
+    };
+
     //
     //
     // const handleSubmitEmail = (e) => {
@@ -114,12 +128,6 @@ const AccountPage = () => {
     //
 
 
-    // const handleSubmitRegion = (e) => {
-    //     e.preventDefault();
-    //
-    //     setMessage("");
-    //     setSuccessful(false);
-    //
 
 
     //     authentication.updateRegion(authentication.getCurrentUser().id,region).then(
@@ -149,7 +157,7 @@ const AccountPage = () => {
     // }
 
     return(
-        <section>
+        <section style={{height: "100vh"}}>
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold", marginLeft: "1em"}}>my account</Title>
             <div style={{ marginBottom: 10 }}>
                 {/*{email !== authentication.getCurrentUser().email*/}
@@ -166,7 +174,7 @@ const AccountPage = () => {
                                 <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
                                     <TextField
                                         id="standard-text"
-                                        label="Type next email"
+                                        label="Type email"
                                         type="text"
                                         InputLabelProps={{
                                             shrink: true,
@@ -175,23 +183,6 @@ const AccountPage = () => {
                                         required={isNullOrUndefined(email)}
                                         value={email}
                                         error={email === null || email === ""}
-                                    />
-                                    &nbsp;
-                                    &nbsp;
-                                    &nbsp;
-                                    &nbsp;
-                                    &nbsp;
-                                    <Autocomplete
-                                        id="combo-box-demo"
-                                        popupOpen={false}
-                                        options={postfixesData}
-                                        style={{ width: "200px" }}
-                                        renderInput={(params) => <TextField {...params} label="postfix" variant="outlined" required={isNullOrUndefined(postfix)}  error={isNullOrUndefined(postfix)}/>}
-                                        onChange={(e, newValue) => {
-                                            setPostfix(newValue);
-                                        }}
-                                        value={postfix}
-
                                     />
                                     <Button
                                         type={"submit"}
@@ -206,24 +197,25 @@ const AccountPage = () => {
                             } }/>
                         </IconButton>
                     </TableRow>
+
                     <TableRow>
-                        <TableCell>Region</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>nwm co</TableCell> :
+                        <TableCell>First name</TableCell>
+                        {!toggleFirstName ?
+                            <TableCell>first name</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
-
-                                    <Autocomplete
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                    <TextField
                                         id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
+                                        label="Update first name"
+                                        type="text"
+                                        InputLabelProps={{
+                                            shrink: true,
                                         }}
-                                        value={region}
+                                        onChange={onChangeFirstName}
+                                        required={isNullOrUndefined(firstName)}
+                                        value={firstName}
+                                        error={firstName === null || firstName === ""}
                                     />
-
                                     <Button
                                         type={"submit"}
                                         color="primary"
@@ -233,28 +225,29 @@ const AccountPage = () => {
                         }
                         <IconButton aria-label="edit">
                             <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
+                                setToggleFirstName(!toggleFirstName);
                             } }/>
                         </IconButton>
                     </TableRow>
+
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>{region}</TableCell> :
+                        <TableCell>Last name</TableCell>
+                        {!toggleLastName ?
+                            <TableCell>last name</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
-
-                                    <Autocomplete
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                    <TextField
                                         id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
+                                        label="Update last name"
+                                        type="text"
+                                        InputLabelProps={{
+                                            shrink: true,
                                         }}
-                                        value={region}
+                                        onChange={onChangeLastName}
+                                        required={isNullOrUndefined(lastName)}
+                                        value={lastName}
+                                        error={lastName === null || lastName === ""}
                                     />
-
                                     <Button
                                         type={"submit"}
                                         color="primary"
@@ -264,28 +257,29 @@ const AccountPage = () => {
                         }
                         <IconButton aria-label="edit">
                             <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
+                                setToggleLastName(!toggleLastName);
                             } }/>
                         </IconButton>
                     </TableRow>
+
                     <TableRow>
-                        <TableCell>last name</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>{region}</TableCell> :
+                        <TableCell>City</TableCell>
+                        {!toggleCity ?
+                            <TableCell>city</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
-
-                                    <Autocomplete
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                    <TextField
                                         id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
+                                        label="Update city"
+                                        type="text"
+                                        InputLabelProps={{
+                                            shrink: true,
                                         }}
-                                        value={region}
+                                        onChange={onChangeCity}
+                                        required={isNullOrUndefined(city)}
+                                        value={city}
+                                        error={city === null || city === ""}
                                     />
-
                                     <Button
                                         type={"submit"}
                                         color="primary"
@@ -295,28 +289,29 @@ const AccountPage = () => {
                         }
                         <IconButton aria-label="edit">
                             <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
+                                setToggleCity(!toggleCity);
                             } }/>
                         </IconButton>
                     </TableRow>
+
                     <TableRow>
-                        <TableCell>phone</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>{region}</TableCell> :
+                        <TableCell>Rank</TableCell>
+                        {!toggleRank ?
+                            <TableCell>rank</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
-
-                                    <Autocomplete
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                    <TextField
                                         id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
+                                        label="Update rank"
+                                        type="text"
+                                        InputLabelProps={{
+                                            shrink: true,
                                         }}
-                                        value={region}
+                                        onChange={onChangeRank}
+                                        required={isNullOrUndefined(rank)}
+                                        value={rank}
+                                        error={rank === null || rank === ""}
                                     />
-
                                     <Button
                                         type={"submit"}
                                         color="primary"
@@ -326,72 +321,13 @@ const AccountPage = () => {
                         }
                         <IconButton aria-label="edit">
                             <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
+                                setToggleRank(!toggleRank);
                             } }/>
                         </IconButton>
                     </TableRow>
-                    <TableRow>
-                        <TableCell>city</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>{region}</TableCell> :
-                            <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
 
-                                    <Autocomplete
-                                        id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
-                                        }}
-                                        value={region}
-                                    />
 
-                                    <Button
-                                        type={"submit"}
-                                        color="primary"
-                                        startIcon={<CloudUpload />}>OK</Button>
-                                </form>
-                            </TableCell>
-                        }
-                        <IconButton aria-label="edit">
-                            <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
-                            } }/>
-                        </IconButton>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>rank</TableCell>
-                        {!toggleRegion ?
-                            <TableCell>{region}</TableCell> :
-                            <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitRegion} */>
 
-                                    <Autocomplete
-                                        id="standard-text"
-                                        options={regions}
-                                        style={{ width: "300px" }}
-                                        renderInput={(params) => <TextField {...params} label="Region" variant="outlined" required={isNullOrUndefined(region)} error={isNullOrUndefined(region)}/>}
-                                        onChange={(e, newValue) => {
-                                            setRegion(newValue);
-                                        }}
-                                        value={region}
-                                    />
-
-                                    <Button
-                                        type={"submit"}
-                                        color="primary"
-                                        startIcon={<CloudUpload />}>OK</Button>
-                                </form>
-                            </TableCell>
-                        }
-                        <IconButton aria-label="edit">
-                            <Edit onClick={() =>{
-                                setToggleRegion(!toggleRegion);
-                            } }/>
-                        </IconButton>
-                    </TableRow>
                 </TableBody>
             </Table>
         </section>

@@ -9,7 +9,8 @@ $additional-color: #fcfcfc;
   flex-direction: column;
   font-family: "Quicksand";
   background-color: rgba(165, 165, 245, 0.27);
-  height: 100vh;
+  position: fixed;
+  height: auto;
   width: 100vw;
 
 }

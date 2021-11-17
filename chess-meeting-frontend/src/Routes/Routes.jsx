@@ -14,6 +14,7 @@ import SearchPage from "../components/usercomponents/SearchPage";
 import AdminNavbar from "../components/admincomponents/AminNavbar";
 
 import NotFound from "./NotFound";
+import CreateForm from "../components/usercomponents/CreateForm";
 
 
 const Routes = () => {
@@ -62,6 +63,11 @@ const Routes = () => {
                     <Route exact path="/search">
                         <UserNavbar/>
                         <SearchPage/>
+                    </Route>
+
+                    <Route exact path="/create">
+                        <UserNavbar/>
+                        <CreateForm/>
                     </Route>
 
                     <Route exact path="/adminPanel">

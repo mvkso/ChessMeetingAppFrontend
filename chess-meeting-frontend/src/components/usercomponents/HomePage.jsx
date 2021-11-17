@@ -23,6 +23,10 @@ const HomePage = () => {
         history.push('/search');
     }
 
+    const handleCreateButton = (e) => {
+        history.push('/create')
+    }
+
     return(
         <div className="home-base-container">
             <Cards/>
@@ -50,33 +54,39 @@ const HomePage = () => {
                     <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>create one by yourself</Title>
                     <br/>
                     <br/>
-                    <form className="search-form">
+                    <form className="search-form" onSubmit={handleCreateButton}>
                         <Button type='submit' variant={"contained"} color={"primary"} size={"large"}>create a tournament</Button>
                     </form>
                 </div>
 
                 <div className="title-form-div">
                     <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>see most recent tournaments</Title>
-                    <table className="rwd3-table" style={{fontFamily: 'Major Mono Display'}}>
+                    <table className="rwd3-table" style={{fontFamily: 'Major Mono Display', width: "30%"}}>
                         <tr>
-                            <th>name</th>
-                            <th>place</th>
-                            <th>chuj</th>
-                            <th>chuj</th>
-                            <th>kargul</th>
+                            <th>description</th>
+                            <th>city</th>
+                            <th>when</th>
+                            <th>rank</th>
+                            <th>slots</th>
+                            <th>join</th>
                         </tr>
                         <tr>
-                            <td data-th="Movie Title">sram na meksykana</td>
-                            <td data-th="Genre">us17</td>
-                            <td data-th="Year">184010</td>
-                            <td data-th="Gross">$chuj</td>
+                            <td data-th="description">turniej o nic</td>
+                            <td data-th="city">bialystok</td>
+                            <td data-th="when">21-02-10 11:00</td>
+                            <td data-th="rank">1200</td>
+                            <td data-th="slots">7/12</td>
+                            <td data-th="join">clickme</td>
                         </tr>
                         <tr>
-                            <td data-th="Movie Title">sram na meksykana</td>
-                            <td data-th="Genre">us17</td>
-                            <td data-th="Year">184010</td>
-                            <td data-th="Gross">$chuj</td>
+                            <td data-th="description">turniej o nic</td>
+                            <td data-th="city">bialystok</td>
+                            <td data-th="when">21-02-10 11:00</td>
+                            <td data-th="rank">1200</td>
+                            <td data-th="slots">7/12</td>
+                            <td data-th="join">clickme</td>
                         </tr>
+
                     </table>
                 </div>
 

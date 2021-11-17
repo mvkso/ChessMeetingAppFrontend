@@ -19,7 +19,7 @@ const CalendarPage = (props) => {
 
 
     return(
-        <section className="adminSection" style={{display: "flex", alightItems: "center", flexDirection: "column", padding: "1em"}}>
+        <section className="adminSection" style={{display: "flex", alightItems: "center", flexDirection: "column", padding: "1em", height: "100vh"}}>
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>your meetings</Title>
 
             <ScheduleComponent  popupOpen={false}  rowAutoHeight={true} width='100%' currentView='Month' /* ref={t => setScheduleObject(t)}  eventClick={onAppointmentClick}  eventSettings={{dataSource: schedules}} */>
