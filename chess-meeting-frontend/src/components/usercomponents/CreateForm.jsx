@@ -9,6 +9,7 @@ import {TextField} from "@material-ui/core";
 import {Alert, Autocomplete} from "@material-ui/lab";
 import {isNullOrUndefined} from "@syncfusion/ej2-base";
 import {wait} from "@testing-library/react";
+import authentication from "../../scripts/authentication";
 
 const CreateForm = () => {
 
@@ -54,7 +55,32 @@ const CreateForm = () => {
     const onChangeDateTimeTo = (e) => {
         const temp = e.target.value;
         setDateTimeTo(temp);
+
     };
+
+    const handleCreateReservation = (e) => {
+        if(dateTimeFrom != null && dateTimeTo != null){
+            authentication.createMeeting(authentication.getCurrentUser().id, dateTimeFrom, dateTimeTo, subject, city,  rank, slots)
+                .then((response) =>
+                    {
+                        setSuccessful(true);
+                        setMessage("Meeting creation succeed!");
+
+                    },
+                    (error)=>{
+                        setSuccessful(false)
+                        setMessage("Error")
+                        alert("EROR")
+
+                    }
+                )
+        }else {
+            setSuccessful(false)
+            setMessage("Cant create a meeting")
+            alert("Error cos tam")
+        }
+
+    }
 
 
     return(
@@ -62,7 +88,7 @@ const CreateForm = () => {
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold", marginTop: "20px"}}>create a meeting</Title>
             <div class="login-page" style={{display: "flex", flexDirection: "column"}}>
                 <div class="form-login" style={{marginTop: "-100px"}}>
-                    <form class="register-form" /*onSubmit={handleRegister}*/ >
+                    <form class="register-form" onSubmit={handleCreateReservation} >
                         {successful === true && message !== "" && <Alert severity="success">{message}</Alert>}
                         {successful === false && message !== "" && <Alert severity="error">{message}</Alert>}
                         <div id="textFields" style={{display:"flex", flexDirection: "column"}}>

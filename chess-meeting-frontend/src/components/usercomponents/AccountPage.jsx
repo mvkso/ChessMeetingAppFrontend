@@ -37,27 +37,20 @@ const AccountPage = () => {
     const { register, handleSubmit, errors, setError, reset } = useForm();
 
 
-    // useEffect(() => {
-    //     setLoggedUser(authentication.getCurrentUser());
-    //     fetch(`http://localhost:8080/users/${authentication.getCurrentUser().id}`,{ headers: authentication.authenticationHeader() })
-    //         .then((res) => res.json())
-    //         .then((admin) => {
-    //             setEmail(admin.email.split('@')[0]);
-    //             setPassword(admin.password);
-    //             setRegion(admin.region)
-    //             setPostfix("@"+admin.email.split('@')[1])
-    //             fetch(`http://localhost:8080/api/auth/getRegions`, {headers: authentication.authenticationHeader()})
-    //                 .then((res) => res.json())
-    //                 .then((regions) => {
-    //                     setRegions(regions.map((region) => region.region));
-    //                     fetch(`http://localhost:8080/postfix/getAllPostfix`,{ headers: authentication.authenticationHeader() })
-    //                         .then((res) => res.json())
-    //                         .then((postfixesData) => {
-    //                             setPostfixesData(postfixesData.map((singlePostfix) => singlePostfix.postfix));
-    //                         })
-    //                 })
-    //         })
-    // }, []);
+    useEffect(() => {
+        setLoggedUser(authentication.getCurrentUser());
+        fetch(`http://localhost:8080/userDetails/userId/${authentication.getCurrentUser().id}`,{ headers: authentication.authenticationHeader() })
+            .then((res) => res.json())
+            .then((user) => {
+                setFirstName(user.firstName);
+                setLastName(user.lastName);
+            })
+        fetch(`http://localhost:8080/users/${authentication.getCurrentUser().id}`, { headers: authentication.authenticationHeader() })
+            .then((res) => res.json())
+            .then((user) => {
+                setEmail(user.email)
+            })
+    }, []);
 
 
     const onChangeEmail = (e) => {
@@ -169,7 +162,7 @@ const AccountPage = () => {
                     <TableRow>
                         <TableCell>Email</TableCell>
                         {!toggleEmail ?
-                            <TableCell>email</TableCell> :
+                            <TableCell>{email}</TableCell> :
                             <TableCell>
                                 <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
                                     <TextField
@@ -201,7 +194,7 @@ const AccountPage = () => {
                     <TableRow>
                         <TableCell>First name</TableCell>
                         {!toggleFirstName ?
-                            <TableCell>first name</TableCell> :
+                            <TableCell>{firstName}</TableCell> :
                             <TableCell>
                                 <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
                                     <TextField
@@ -233,7 +226,7 @@ const AccountPage = () => {
                     <TableRow>
                         <TableCell>Last name</TableCell>
                         {!toggleLastName ?
-                            <TableCell>last name</TableCell> :
+                            <TableCell>{lastName}</TableCell> :
                             <TableCell>
                                 <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
                                     <TextField
@@ -261,72 +254,6 @@ const AccountPage = () => {
                             } }/>
                         </IconButton>
                     </TableRow>
-
-                    <TableRow>
-                        <TableCell>City</TableCell>
-                        {!toggleCity ?
-                            <TableCell>city</TableCell> :
-                            <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
-                                    <TextField
-                                        id="standard-text"
-                                        label="Update city"
-                                        type="text"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        onChange={onChangeCity}
-                                        required={isNullOrUndefined(city)}
-                                        value={city}
-                                        error={city === null || city === ""}
-                                    />
-                                    <Button
-                                        type={"submit"}
-                                        color="primary"
-                                        startIcon={<CloudUpload />}>OK</Button>
-                                </form>
-                            </TableCell>
-                        }
-                        <IconButton aria-label="edit">
-                            <Edit onClick={() =>{
-                                setToggleCity(!toggleCity);
-                            } }/>
-                        </IconButton>
-                    </TableRow>
-
-                    <TableRow>
-                        <TableCell>Rank</TableCell>
-                        {!toggleRank ?
-                            <TableCell>rank</TableCell> :
-                            <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
-                                    <TextField
-                                        id="standard-text"
-                                        label="Update rank"
-                                        type="text"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        onChange={onChangeRank}
-                                        required={isNullOrUndefined(rank)}
-                                        value={rank}
-                                        error={rank === null || rank === ""}
-                                    />
-                                    <Button
-                                        type={"submit"}
-                                        color="primary"
-                                        startIcon={<CloudUpload />}>OK</Button>
-                                </form>
-                            </TableCell>
-                        }
-                        <IconButton aria-label="edit">
-                            <Edit onClick={() =>{
-                                setToggleRank(!toggleRank);
-                            } }/>
-                        </IconButton>
-                    </TableRow>
-
-
 
                 </TableBody>
             </Table>

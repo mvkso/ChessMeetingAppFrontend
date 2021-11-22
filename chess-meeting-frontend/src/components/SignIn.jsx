@@ -48,7 +48,7 @@ const SignUp = (props) => {
             () => {
                 props.setLoggedUser(Authentication.getCurrentUser());
                 const user = JSON.parse(sessionStorage.getItem('user'));
-                user.userType === "ADMIN" ? history.push("/adminPanel") : history.push("/employeePanel")
+                user.userType === "ADMIN" ? history.push("/adminPanel") : history.push("/home")
                 window.location.reload();
 
             },

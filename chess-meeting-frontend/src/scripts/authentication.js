@@ -16,15 +16,14 @@ const authenticationHeader = () => {
 }
 
 
-const register = (email, password, confirmedPassword, name, lastName, phoneNumber, userType) => {
+const register = (email, password, confirmedPassword, name, lastName, phoneNumber) => {
     return axios.post(API_URL + "signup", {
         email,
         password,
         confirmedPassword,
         name,
         lastName,
-        phoneNumber,
-        userType
+        phoneNumber
     }, {headers: authenticationHeader()});
 };
 
@@ -129,6 +128,20 @@ const isLoggedIn = () => {
     if(user == null || user.accessToken == null || user.userType == null) return false;
 }
 
+const createMeeting = (userId, DateTimeFrom, DateTimeTo, Subject, CityAddress, MinimumRank, Slots) => {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    return axios.post('http://localhost:8080/reservations/', {
+        userId,
+        DateTimeFrom,
+        DateTimeTo,
+        Subject,
+        CityAddress,
+        MinimumRank,
+        Slots
+    }, {headers: authenticationHeader()});
+}
+
+
 export default {
     authenticationHeader,
     register,
@@ -144,5 +157,6 @@ export default {
     updatePhoneNumber,
     updateEmail,
     updateRegion,
-    updateNameOrLastName
+    updateNameOrLastName,
+    createMeeting
 };
