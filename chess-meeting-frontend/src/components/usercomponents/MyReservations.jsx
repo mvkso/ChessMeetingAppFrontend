@@ -2,6 +2,8 @@ import "../css/Reservations.scss"
 import Title from "../../Title";
 import React, {useContext, useEffect, useState} from "react";
 import authentication from "../../scripts/authentication";
+import * as url from "url";
+import {useParams} from "react-router-dom";
 
 const MyReservations = (props) => {
 
@@ -14,6 +16,8 @@ const MyReservations = (props) => {
     const [slotsBooked, setSlotsBooked] = useState(0);
     const [allSlots, setAllSlots] = useState(0);
 
+    const {cityReservations} = useParams();
+
     const[allReservations, setAllReservations] = useState([]);
     const[userDetails, setUserDetails] = useState([]);
 
@@ -23,7 +27,9 @@ const MyReservations = (props) => {
             .then((res) => res.json())
             .then((userDetails1) => {
                 setUserDetails(userDetails);
-                fetch(`http://localhost:8080/reservations/user/${userDetails1.userDetailsId}/created`, { headers: authentication.authenticationHeader() })
+                fetch(`http://localhost:8080/reservations/`+(props.type === "created" ? `user/${userDetails1.userDetailsId}/created`
+                    : props.type === "booked" ? `user/${userDetails1.userDetailsId}/booked` : ``),
+                    { headers: authentication.authenticationHeader() })
                     .then((res) => res.json())
                     .then((reservations) => setAllReservations(reservations))
                     .then(console.log(allReservations))
@@ -35,7 +41,7 @@ const MyReservations = (props) => {
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "your tournaments" : "your reservations"}</Title>
             <table className={props.color === "secondary" ? "rwd2-table" : "rwd-table"} style={{fontFamily: 'Major Mono Display'}}>
                 <tr>
-                    <th>description</th>
+                    <th>description {props.type}</th>
                     <th>city</th>
                     <th>when</th>
                     <th>rank</th>
@@ -44,6 +50,7 @@ const MyReservations = (props) => {
                 </tr>
                 {allReservations.map((e) => {
                     return(
+
                     <tr>
                         <td data-th="description">{e.subject.toLowerCase()}</td>
                         <td data-th="city">{e.cityAddress.toLowerCase()}</td>

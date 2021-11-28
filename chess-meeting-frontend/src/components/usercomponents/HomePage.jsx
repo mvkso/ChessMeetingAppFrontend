@@ -20,7 +20,7 @@ const HomePage = () => {
     };
 
     const handleSearch = (e) => {
-        history.push('/search');
+        history.push(`/search/${searchInput}`);
     }
 
     const handleCreateButton = (e) => {

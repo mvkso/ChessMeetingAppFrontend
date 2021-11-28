@@ -21,13 +21,12 @@ const AccountPage = () => {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [rank, setRank] = useState("");
-    const [city, setCity] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("");
     const[toggleEmail, setToggleEmail] = useState(false);
     const[toggleFirstName, setToggleFirstName] = useState(false);
     const[toggleLastName, setToggleLastName] = useState(false);
-    const[toggleRank, setToggleRank] = useState(false);
-    const[toggleCity, setToggleCity] = useState(false);
+    const[togglePhone, setTogglePhone] = useState(false);
+
 
 
 
@@ -44,6 +43,7 @@ const AccountPage = () => {
             .then((user) => {
                 setFirstName(user.firstName);
                 setLastName(user.lastName);
+                setPhoneNumber(user.phoneNumber);
             })
         fetch(`http://localhost:8080/users/${authentication.getCurrentUser().id}`, { headers: authentication.authenticationHeader() })
             .then((res) => res.json())
@@ -68,15 +68,12 @@ const AccountPage = () => {
         setLastName(temp);
     };
 
-    const onChangeCity = (e) => {
-        const temp = e.target.value;
-        setCity(temp);
+    const onChangePhoneNumber = (e) => {
+        const phoneNumber = e.target.value;
+        setPhoneNumber(phoneNumber);
     };
 
-    const onChangeRank = (e) => {
-        const temp = e.target.value;
-        setRank(temp);
-    };
+
 
     //
     //
@@ -251,6 +248,36 @@ const AccountPage = () => {
                         <IconButton aria-label="edit">
                             <Edit onClick={() =>{
                                 setToggleLastName(!toggleLastName);
+                            } }/>
+                        </IconButton>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Phone number</TableCell>
+                        {!togglePhone ?
+                            <TableCell>{phoneNumber}</TableCell> :
+                            <TableCell>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitPhoneNumber} */>
+                                    <TextField
+                                        id="standard-text"
+                                        label="Phone number"
+                                        type="number"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={onChangePhoneNumber}
+                                        error={phoneNumber === null || phoneNumber === ""}
+                                        value={phoneNumber}
+                                    />
+                                    <Button
+                                        type={"submit"}
+                                        color={"primary"}
+                                        startIcon={<CloudUpload />}>OK</Button>
+                                </form>
+                            </TableCell>
+                        }
+                        <IconButton aria-label="edit">
+                            <Edit onClick={() =>{
+                                setTogglePhone(!togglePhone);
                             } }/>
                         </IconButton>
                     </TableRow>

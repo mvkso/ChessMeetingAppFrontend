@@ -19,6 +19,15 @@ const SignUp = (props) => {
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+    const [registerConfirmedPassword, setRegisterConfirmedPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState(null)
+
+
     const [loggedIn, setLoggedIn] = useState(null);
     const [formToggle, setFormToggle] = useState(true);
 
@@ -38,6 +47,38 @@ const SignUp = (props) => {
         const password = e.target.value;
         setPassword(password);
     };
+
+    const onChangeRegisterEmail = (e) => {
+        const email = e.target.value;
+        setRegisterEmail(email);
+    };
+
+    const onChangeRegisterPassword = (e) => {
+        const temp = e.target.value;
+        setRegisterPassword(temp);
+    };
+
+    const onChangeRegisterConfirmedPassword = (e) => {
+        const temp = e.target.value;
+        setRegisterConfirmedPassword(temp);
+    };
+
+    const onChangeFirstName = (e) => {
+        const temp = e.target.value;
+        setFirstName(temp);
+    };
+
+    const onChangeLastName = (e) => {
+        const temp = e.target.value;
+        setLastName(temp);
+    };
+
+    const onChangePhoneNumber = (e) => {
+        const temp = e.target.value;
+        setPhoneNumber(temp);
+    }
+
+
     // const getCurrentUser = () => {
     //     return JSON.parse(sessionStorage.getItem("user"));
     // };
@@ -66,6 +107,44 @@ const SignUp = (props) => {
         );
     };
 
+    const handleRegister = (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setSuccessful(false);
+
+
+        if(registerPassword === registerConfirmedPassword) {
+            Authentication.register(registerEmail, registerPassword, registerConfirmedPassword, firstName, lastName, phoneNumber)
+                .then(
+                    (response) => {
+                        setMessage(response.data.message);
+                        setSuccessful(true);
+                        //history.push("/adminPanel/employees");
+                        // window.location.reload();
+                        setFirstName("");
+                        setLastName("");
+                        setRegisterEmail("");
+                        setRegisterPassword("");
+                        setRegisterConfirmedPassword("");
+
+                    },
+                    (error) => {
+                        const resMessage =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
+                        alert("Registration failure!");
+                        setMessage(resMessage);
+                        setSuccessful(false);
+                    }
+                );}else{
+            setSuccessful(false);
+        }
+    }
+
     return(
         <section className="signin-section" >
 
@@ -91,6 +170,7 @@ const SignUp = (props) => {
                                 shrink: true,
                             }}
                             onChange={onChangeEmail}
+                            value={email}
 
                         />
                         <br/>
@@ -103,6 +183,7 @@ const SignUp = (props) => {
                                 shrink: true,
                             }}
                             onChange={onChangePassword}
+                            value={password}
 
                         />
                         <br/>
@@ -111,7 +192,9 @@ const SignUp = (props) => {
                         <p className="message">Don't have an account yet? <a onClick={onChangeState}>Register</a></p>
                     </form>
                         :
-                    <form class="register-form" style={{display: "flex", flexDirection: "column"}}>
+                    <form class="register-form" style={{display: "flex", flexDirection: "column"}} onSubmit={handleRegister}>
+                        {successful === true && message !== "" && <Alert severity="success">{message}</Alert>}
+                        {successful === false && message !== "" && <Alert severity="error">{message}</Alert>}
                         <TextField
                             id="standard-text"
                             label="Type email"
@@ -119,7 +202,12 @@ const SignUp = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            // onChange={}
+                            onChange={onChangeRegisterEmail}
+                            variant={"filled"}
+                            value={registerEmail}
+                            error={registerEmail === null || registerEmail === ""}
+                            style={{ width: "100%" }}
+                            required
 
                         />
                         <TextField
@@ -129,7 +217,11 @@ const SignUp = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            // onChange={}
+                            onChange={onChangeFirstName}
+                            variant={"filled"}
+                            value={firstName}
+                            style={{ width: "auto" }}
+                            required
 
                         />
                         <TextField
@@ -139,8 +231,25 @@ const SignUp = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            // onChange={}
+                            onChange={onChangeLastName}
+                            variant={"filled"}
+                            value={lastName}
+                            style={{ width: "auto" }}
+                            required
 
+                        />
+                        <TextField
+                            id="standard-number"
+                            label="phone number"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant={"filled"}
+                            onChange={onChangePhoneNumber}
+                            value={phoneNumber}
+                            style={{ width: "auto" }}
+                            required
                         />
                         <TextField
                             id="standard-text"
@@ -149,7 +258,13 @@ const SignUp = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            // onChange={}
+                            onChange={onChangeRegisterPassword}
+                            variant={"filled"}
+                            value={registerPassword}
+                            error={registerPassword === null || registerPassword === "" || registerPassword.length<5}
+                            helperText={(registerPassword.length<5  ? 'At least 5 characters needed' : null)}
+                            style={{ width: "auto" }}
+                            required
 
                         />
                         <TextField
@@ -159,7 +274,13 @@ const SignUp = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            // onChange={}
+                            onChange={onChangeRegisterConfirmedPassword}
+                            variant={"filled"}
+                            value={registerConfirmedPassword}
+                            error={registerConfirmedPassword === null || registerConfirmedPassword === "" || registerConfirmedPassword.length<5}
+                            helperText={registerPassword !== registerConfirmedPassword ? 'Passwords are different' : null}
+                            style={{ width: "auto" }}
+                            required
                         />
                         <Button type='submit' >register</Button>
                         <p className="message">You have already an account? <a onClick={onChangeState}>Login</a></p>

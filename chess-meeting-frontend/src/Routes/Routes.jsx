@@ -49,8 +49,8 @@ const Routes = () => {
                     <Route exact path="/reservations">
                         <UserNavbar/>
                         <section style={{display: "flex", flexDirection: "row", paddingLeft: "20px", justifyContent: "space-around"}}>
-                            <MyReservations/>
-                            <MyReservations color = "secondary"/>
+                            <MyReservations type={"created"} />
+                            <MyReservations type={"booked"} color = "secondary"/>
                         </section>
 
                     </Route>
@@ -60,7 +60,7 @@ const Routes = () => {
                         <AccountPage/>
                     </Route>
 
-                    <Route exact path="/search">
+                    <Route exact path="/search/:cityReservation" component={SearchPage}>
                         <UserNavbar/>
                         <SearchPage/>
                     </Route>

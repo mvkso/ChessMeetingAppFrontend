@@ -141,6 +141,13 @@ const createMeeting = (userId, DateTimeFrom, DateTimeTo, Subject, CityAddress, M
     }, {headers: authenticationHeader()});
 }
 
+const bookMeeting = (reservationId, userId) => {
+    return axios.put(`http://localhost:8080/reservations//book/${reservationId}`, {
+        reservationId,
+        userId
+    }, {headers: authenticationHeader()})
+}
+
 
 export default {
     authenticationHeader,
@@ -158,5 +165,6 @@ export default {
     updateEmail,
     updateRegion,
     updateNameOrLastName,
-    createMeeting
+    createMeeting,
+    bookMeeting
 };
