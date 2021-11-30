@@ -17,7 +17,7 @@ const UserNavbar = () => {
 
     return(
 
-        <div>
+        <div className="navbar-div">
             <ul className="nav-user">
                 <li className="nav-item slam-left"><Link to="/home">home</Link></li>
                 <li className="nav-item"><Link to="/calendar">calendar</Link></li>

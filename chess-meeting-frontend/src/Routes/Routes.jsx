@@ -15,6 +15,7 @@ import AdminNavbar from "../components/admincomponents/AminNavbar";
 
 import NotFound from "./NotFound";
 import CreateForm from "../components/usercomponents/CreateForm";
+import ReservationOverview from "../components/usercomponents/ReservationOverview";
 
 
 const Routes = () => {
@@ -48,10 +49,8 @@ const Routes = () => {
 
                     <Route exact path="/reservations">
                         <UserNavbar/>
-                        <section style={{display: "flex", flexDirection: "row", paddingLeft: "20px", justifyContent: "space-around"}}>
-                            <MyReservations type={"created"} />
-                            <MyReservations type={"booked"} color = "secondary"/>
-                        </section>
+                        <ReservationOverview/>
+
 
                     </Route>
 

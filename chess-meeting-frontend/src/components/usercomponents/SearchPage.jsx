@@ -39,9 +39,9 @@ const SearchPage = (props) => {
 
     const handleOk = () => {
         alert(selectedId)
-        return authentication.bookMeeting(selectedId, authentication.getCurrentUser().id)
+        return authentication.bookReservation(selectedId, authentication.getCurrentUser().id)
             .then(setSelectedId(undefined))
-            .then(window.location.reload)
+            .then(window.location.reload())
     }
 
 
@@ -74,9 +74,9 @@ const SearchPage = (props) => {
                     return(
 
                         <tr >
-                            <td data-th="description" >{data.subject.toLowerCase()}</td>
+                            <td data-th="description" >{data.Subject.toLowerCase()}</td>
                             <td data-th="city">{data.cityAddress.toLowerCase()}</td>
-                            <td data-th="when">{data.dateTimeFrom}</td>
+                            <td data-th="when">{data.StartTime}</td>
                             <td data-th="rank">{data.minimumRank}</td>
                             <td data-th="slots">{data.slotsBooked}/{data.allSlots}</td>
                             <td data-th="join"><IconButton aria-label="edit">

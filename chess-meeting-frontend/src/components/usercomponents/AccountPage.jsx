@@ -22,9 +22,16 @@ const AccountPage = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+
+    const [emailChanged, setEmailChanged] = useState(null);
+    const [firstNameChanged, setFirstNameChanged] = useState(null);
+    const [lastNameChanged, setLastNameChanged] = useState(null);
+    const [phoneNumberChanged, setPhoneNumberChanged] = useState(null);
+
     const[toggleEmail, setToggleEmail] = useState(false);
     const[toggleFirstName, setToggleFirstName] = useState(false);
     const[toggleLastName, setToggleLastName] = useState(false);
+    const[togglePassword, setTogglePassword] = useState(false);
     const[togglePhone, setTogglePhone] = useState(false);
 
 
@@ -55,96 +62,71 @@ const AccountPage = () => {
 
     const onChangeEmail = (e) => {
         const newEmail = e.target.value;
-        setEmail(newEmail);
+        setEmailChanged(newEmail);
     };
 
     const onChangeFirstName = (e) => {
         const temp = e.target.value;
-        setFirstName(temp);
+        setFirstNameChanged(temp);
     };
 
     const onChangeLastName = (e) => {
         const temp = e.target.value;
-        setLastName(temp);
+        setLastNameChanged(temp);
     };
 
     const onChangePhoneNumber = (e) => {
         const phoneNumber = e.target.value;
-        setPhoneNumber(phoneNumber);
+        setPhoneNumberChanged(phoneNumber);
     };
 
 
 
-    //
-    //
-    // const handleSubmitEmail = (e) => {
-    //     e.preventDefault();
-    //
-    //     setMessage("");
-    //     setSuccessful(false);
-    //
-    //
-    //
-    //     authentication.updateEmail(authentication.getCurrentUser().id,email+postfix).then(
-    //         (response) => {
-    //             setMessage(response.data.message);
-    //             setSuccessful(true);
-    //             setToggleEmail(false);
-    //             setTogglePassword(false);
-    //             setEmailChanged(true);
-    //             alert("You have to re-log in!")
-    //             authentication.logout();
-    //             window.location.reload();
-    //         },
-    //         (error) => {
-    //             const resMessage =
-    //                 (error.response &&
-    //                     error.response.data &&
-    //                     error.response.data.message) ||
-    //                 error.message ||
-    //                 error.toString();
-    //             setMessage(resMessage);
-    //             setSuccessful(false);
-    //             setToggleEmail(false);
-    //             setTogglePassword(false);
-    //             setEmailChanged(false);
-    //         }
-    //     );
-    //
-    //
-    //     // authentication.logout();
-    //     // history.push("/");
-    // }
-    //
+
+
+    const handleSubmitEmail = (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setSuccessful(false);
+
+
+
+        authentication.updateEmail(authentication.getCurrentUser().id,email).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+                setToggleEmail(false);
+                setTogglePassword(false);
+                setEmailChanged(true);
+                alert("You have to re-log in!")
+                authentication.logout();
+                window.location.reload();
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMessage(resMessage);
+                setSuccessful(false);
+                setToggleEmail(false);
+                setTogglePassword(false);
+                setEmailChanged(false);
+            }
+        );
+
+
+        // authentication.logout();
+        // history.push("/");
+    }
 
 
 
 
-    //     authentication.updateRegion(authentication.getCurrentUser().id,region).then(
-    //         (response) => {
-    //             setMessage(response.data.message);
-    //             setSuccessful(true);
-    //             setToggleRegion(false);
-    //             setTogglePassword(false);
-    //             setRegionChanged(true);
-    //         },
-    //         (error) => {
-    //             const resMessage =
-    //                 (error.response &&
-    //                     error.response.data &&
-    //                     error.response.data.message) ||
-    //                 error.message ||
-    //                 error.toString();
-    //             setMessage(resMessage);
-    //             setSuccessful(false);
-    //             setToggleRegion(false);
-    //             setTogglePassword(false);
-    //             setRegionChanged(false);
-    //         }
-    //     );
-    //
-    //
-    // }
+
 
     return(
         <section style={{height: "100vh"}}>
@@ -161,7 +143,7 @@ const AccountPage = () => {
                         {!toggleEmail ?
                             <TableCell>{email}</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} onSubmit={handleSubmitEmail} >
                                     <TextField
                                         id="standard-text"
                                         label="Type email"
@@ -170,9 +152,9 @@ const AccountPage = () => {
                                             shrink: true,
                                         }}
                                         onChange={onChangeEmail}
-                                        required={isNullOrUndefined(email)}
-                                        value={email}
-                                        error={email === null || email === ""}
+                                        required={isNullOrUndefined(emailChanged)}
+                                        value={emailChanged}
+                                        error={emailChanged === null || emailChanged === ""}
                                     />
                                     <Button
                                         type={"submit"}
@@ -202,9 +184,9 @@ const AccountPage = () => {
                                             shrink: true,
                                         }}
                                         onChange={onChangeFirstName}
-                                        required={isNullOrUndefined(firstName)}
-                                        value={firstName}
-                                        error={firstName === null || firstName === ""}
+                                        required={isNullOrUndefined(firstNameChanged)}
+                                        value={firstNameChanged}
+                                        error={firstNameChanged === null || firstNameChanged === ""}
                                     />
                                     <Button
                                         type={"submit"}
@@ -234,9 +216,9 @@ const AccountPage = () => {
                                             shrink: true,
                                         }}
                                         onChange={onChangeLastName}
-                                        required={isNullOrUndefined(lastName)}
-                                        value={lastName}
-                                        error={lastName === null || lastName === ""}
+                                        required={isNullOrUndefined(lastNameChanged)}
+                                        value={lastNameChanged}
+                                        error={lastNameChanged === null || lastNameChanged === ""}
                                     />
                                     <Button
                                         type={"submit"}
@@ -259,14 +241,14 @@ const AccountPage = () => {
                                 <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitPhoneNumber} */>
                                     <TextField
                                         id="standard-text"
-                                        label="Phone number"
+                                        label="Update phone number"
                                         type="number"
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
                                         onChange={onChangePhoneNumber}
-                                        error={phoneNumber === null || phoneNumber === ""}
-                                        value={phoneNumber}
+                                        error={phoneNumberChanged === null || phoneNumberChanged === ""}
+                                        value={phoneNumberChanged}
                                     />
                                     <Button
                                         type={"submit"}

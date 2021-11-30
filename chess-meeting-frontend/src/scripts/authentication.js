@@ -141,8 +141,15 @@ const createMeeting = (userId, DateTimeFrom, DateTimeTo, Subject, CityAddress, M
     }, {headers: authenticationHeader()});
 }
 
-const bookMeeting = (reservationId, userId) => {
-    return axios.put(`http://localhost:8080/reservations//book/${reservationId}`, {
+const bookReservation = (reservationId, userId) => {
+    return axios.put(`http://localhost:8080/reservations/book/${reservationId}`, {
+        reservationId,
+        userId
+    }, {headers: authenticationHeader()})
+}
+
+const cancelOrDeleteReservation = (reservationId, userId) => {
+    return axios.put(`http://localhost:8080/reservations/cancel/${reservationId}`, {
         reservationId,
         userId
     }, {headers: authenticationHeader()})
@@ -166,5 +173,6 @@ export default {
     updateRegion,
     updateNameOrLastName,
     createMeeting,
-    bookMeeting
+    bookReservation,
+    cancelOrDeleteReservation
 };
