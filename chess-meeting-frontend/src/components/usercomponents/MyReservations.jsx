@@ -6,6 +6,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CancelReservationDialog from "./userdialogs/CancelReservationDialog";
 import {IconButton} from "@material-ui/core";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import axios from "axios";
 
 const MyReservations = (props) => {
 
@@ -44,6 +45,31 @@ const MyReservations = (props) => {
             .then(setSelectedId(undefined))
             .then(window.location.reload())
     }
+    
+    const handleClickPDF= (e) => {
+        authentication.getPDF(e.Id)
+            .then((response) => response.blob())
+            .then(blob => {
+                //create blob link to download
+                const url = window.URL.createObjectURL(
+                    new Blob([blob]),
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    `${e.cityAddress}-meeting.pdf`,
+                );
+
+                //Append to html link element page
+                document.body.appendChild(link);
+                //start download
+                link.click();
+                //Clean up and remove the link
+                link.parentNode.removeChild(link);
+
+            })
+    }
 
 
     return(
@@ -56,7 +82,7 @@ const MyReservations = (props) => {
                 message={dialogMessage}
             />
         <section className="reservation-section" style={{height: "100vh"}}>
-            <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "your tournaments" : "your reservations"}</Title>
+            <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "your reservations" : "your tournaments"}</Title>
             <table className={props.color === "secondary" ? "rwd2-table" : "rwd-table"} style={{fontFamily: 'Major Mono Display'}}>
                 <tr>
                     <th>description {props.type}</th>
@@ -87,7 +113,7 @@ const MyReservations = (props) => {
                         {props.type === "created" ?
                             <td data-th="pdf"><IconButton aria-label="edit">
                                 <PictureAsPdfIcon color={"white"} style={{color: "white"}} onClick={() =>{
-                                    setSelectedId(data.Id)
+                                   handleClickPDF(data);
                                 } }/>
                             </IconButton> </td>
 

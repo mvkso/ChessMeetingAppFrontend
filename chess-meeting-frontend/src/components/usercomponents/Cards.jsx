@@ -19,7 +19,7 @@ const Cards = () => {
                 </div>
                 <div className="description">
                     <h1 style={{fontFamily: 'Major Mono Display'}}>challenge yourself</h1>
-                    <h2>Participate in chess all over country</h2>
+                    <h2>Play chess all over country</h2>
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati
                         enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
 
@@ -36,7 +36,7 @@ const Cards = () => {
                 </div>
                 <div className="description">
                     <h1 style={{fontFamily: 'Major Mono Display'}}>create a community</h1>
-                    <h2>Create a tournament by yourself</h2>
+                    <h2>Join our chess forum</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati
                         enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
 

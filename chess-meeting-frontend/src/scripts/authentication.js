@@ -2,7 +2,9 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
-//TODO endpointy i nazwy
+const urlHost = "http://localhost:8080/";
+
+
 
 const authenticationHeader = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -155,6 +157,16 @@ const cancelOrDeleteReservation = (reservationId, userId) => {
     }, {headers: authenticationHeader()})
 }
 
+const getPDF = (id) =>{
+    return fetch( `http://localhost:8080/pdf/download/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/pdf',
+        },
+    })
+}
+
+
 
 export default {
     authenticationHeader,
@@ -174,5 +186,6 @@ export default {
     updateNameOrLastName,
     createMeeting,
     bookReservation,
-    cancelOrDeleteReservation
+    cancelOrDeleteReservation,
+    getPDF
 };

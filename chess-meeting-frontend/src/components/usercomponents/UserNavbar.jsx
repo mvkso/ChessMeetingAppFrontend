@@ -22,6 +22,7 @@ const UserNavbar = () => {
                 <li className="nav-item slam-left"><Link to="/home">home</Link></li>
                 <li className="nav-item"><Link to="/calendar">calendar</Link></li>
                 <li className="nav-item"><Link to="/reservations">reservations</Link></li>
+                <li className="nav-item"><Link to="/forum">forum</Link></li>
                 <li className="nav-item"><Link to="/account">account</Link></li>
                 <li className="nav-item"><Link className="logout-link" to="/"
                                                onClick={ () => {
