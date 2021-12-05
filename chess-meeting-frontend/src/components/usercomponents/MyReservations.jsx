@@ -85,7 +85,7 @@ const MyReservations = (props) => {
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "your reservations" : "your tournaments"}</Title>
             <table className={props.color === "secondary" ? "rwd2-table" : "rwd-table"} style={{fontFamily: 'Major Mono Display'}}>
                 <tr>
-                    <th>description {props.type}</th>
+                    <th>description</th>
                     <th>city</th>
                     <th>when</th>
                     <th>rank</th>

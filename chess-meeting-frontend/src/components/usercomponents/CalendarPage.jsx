@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import {Schedule, Inject, ScheduleComponent, Day, Week, WorkWeek, Month
     , Agenda, MonthAgenda, ViewDirective, ViewsDirective,
-    TimelineViews, TimelineMonth, ResourceDirective, ResourcesDirective} from "@syncfusion/ej2-react-schedule";
+    TimelineViews, TimelineMonth} from "@syncfusion/ej2-react-schedule";
 import axios from "axios";
 
 import React from "react";
@@ -59,9 +59,6 @@ const CalendarPage = (props) => {
                             { headers: authentication.authenticationHeader() })
                             .then((res) => res.json())
                             .then((bookedReservations1) => setBookedReservations(bookedReservations1))
-                            .then(console.log(createdReservations))
-                            .then(console.log(data))
-                            .then(setAllReservations(createdReservations.push(bookedReservations)))
 
                     )})
     }, [])

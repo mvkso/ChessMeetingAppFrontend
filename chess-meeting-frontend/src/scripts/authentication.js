@@ -166,6 +166,15 @@ const getPDF = (id) =>{
     })
 }
 
+const createTopic = (title, content, category, userId) => {
+    return axios.post(`http://localhost:8080/topic/`, {
+        title,
+        content,
+        category,
+        userId
+    }, {headers: authenticationHeader()})
+}
+
 
 
 export default {
@@ -187,5 +196,6 @@ export default {
     createMeeting,
     bookReservation,
     cancelOrDeleteReservation,
-    getPDF
+    getPDF,
+    createTopic
 };

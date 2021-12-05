@@ -59,8 +59,8 @@ const SearchPage = (props) => {
             />
         <section className="search-section" style={{height: "100vh"}}>
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>search for city - {cityReservation}</Title>
-            {allReservations.length === 0 ? <Title><Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>
-                sorry, looks like there are no events for city {cityReservation} </Title> </Title> : null}
+            {allReservations.length === 0 ? <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>
+                sorry, looks like there are no events for city {cityReservation} </Title>  : null}
             <table className="rwd-table-search" style={{fontFamily: 'Major Mono Display'}}>
                 <tr>
                     <th>description</th>

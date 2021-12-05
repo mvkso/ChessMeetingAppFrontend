@@ -16,7 +16,13 @@ import AdminNavbar from "../components/admincomponents/AminNavbar";
 import NotFound from "./NotFound";
 import CreateForm from "../components/usercomponents/CreateForm";
 import ReservationOverview from "../components/usercomponents/ReservationOverview";
+// import ForumMainPage from "../components/usercomponents/forum/ForumMainPage";
 
+import ForumMainPage from "../components/usercomponents/forum/ForumMainPage";
+import ForumCategoriesView from "../components/usercomponents/forum/ForumCategoriesView";
+import ForumCreateForm from "../components/usercomponents/forum/ForumCreateForm";
+import ForumUsersTopics from "../components/usercomponents/forum/ForumUsersTopics";
+import ForumTopicView from "../components/usercomponents/forum/ForumTopicView";
 
 const Routes = () => {
     const [loggedUser, setLoggedUser] = useState(null);
@@ -69,9 +75,36 @@ const Routes = () => {
                         <CreateForm/>
                     </Route>
 
+                    <Route exact path="/forum">
+                        <UserNavbar/>
+                        <ForumMainPage/>
+                    </Route>
+
+                    <Route exact path="/forum/category/:category" component={ForumCategoriesView}>
+                        <UserNavbar/>
+                        <ForumCategoriesView/>
+                    </Route>
+
+                    <Route exact path="/forum/create-topic">
+                        <UserNavbar/>
+                        <ForumCreateForm/>
+                    </Route>
+
+                    <Route exact path="/forum/my-topics">
+                        <UserNavbar/>
+                        <ForumUsersTopics/>
+                    </Route>
+
+                    <Route exact path="/forum/topic/:id" component={ForumTopicView}>
+                        <UserNavbar/>
+                        <ForumTopicView/>
+                    </Route>
+
+
                     <Route exact path="/adminPanel">
                         <AdminNavbar/>
                     </Route>
+
 
 
 
