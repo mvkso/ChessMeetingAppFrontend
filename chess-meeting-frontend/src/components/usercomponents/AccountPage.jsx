@@ -2,13 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import authentication from "../../scripts/authentication";
 import {IconButton, Table, TableBody, TableCell, TableRow, TextField} from "@material-ui/core";
 import {ThemeContext} from "../../Theme-context";
-import {Link as RouterLink} from "react-router-dom";
 import {Edit} from "@material-ui/icons";
-import {Alert, Autocomplete} from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import {CloudUpload} from '@material-ui/icons';
-import {useForm} from "react-hook-form";
+import {CloudUpload} from '@material-ui/icons'
 import {isNullOrUndefined} from "@syncfusion/ej2-base";
 import Title from "../../Title";
 
@@ -22,10 +19,11 @@ const AccountPage = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [currentPassword, setCurrentPassword ] = useState("");
+    const [newPassword, setNewPassword ] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword ] = useState("");
 
     const [emailChanged, setEmailChanged] = useState(null);
-    const [firstNameChanged, setFirstNameChanged] = useState(null);
-    const [lastNameChanged, setLastNameChanged] = useState(null);
     const [phoneNumberChanged, setPhoneNumberChanged] = useState(null);
 
     const[toggleEmail, setToggleEmail] = useState(false);
@@ -40,7 +38,6 @@ const AccountPage = () => {
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
-    const { register, handleSubmit, errors, setError, reset } = useForm();
 
 
     useEffect(() => {
@@ -67,18 +64,34 @@ const AccountPage = () => {
 
     const onChangeFirstName = (e) => {
         const temp = e.target.value;
-        setFirstNameChanged(temp);
+        setFirstName(temp);
     };
 
     const onChangeLastName = (e) => {
         const temp = e.target.value;
-        setLastNameChanged(temp);
+        setLastName(temp);
     };
 
     const onChangePhoneNumber = (e) => {
         const phoneNumber = e.target.value;
         setPhoneNumberChanged(phoneNumber);
     };
+
+    const onChangeCurrentPassword = (e) => {
+        const temp = e.target.value;
+        setCurrentPassword(temp);
+    };
+
+    const onChangeNewPassword = (e) => {
+        const temp = e.target.value;
+        setNewPassword(temp);
+    };
+
+    const onChangeConfirmedNewPassword = (e) => {
+        const temp = e.target.value;
+        setConfirmNewPassword(temp);
+    };
+
 
 
 
@@ -92,7 +105,7 @@ const AccountPage = () => {
 
 
 
-        authentication.updateEmail(authentication.getCurrentUser().id,email).then(
+        authentication.updateEmail(authentication.getCurrentUser().id,emailChanged).then(
             (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
@@ -101,7 +114,7 @@ const AccountPage = () => {
                 setEmailChanged(true);
                 alert("You have to re-log in!")
                 authentication.logout();
-                window.location.reload();
+                history.push("/")
             },
             (error) => {
                 const resMessage =
@@ -121,6 +134,85 @@ const AccountPage = () => {
 
         // authentication.logout();
         // history.push("/");
+    }
+
+    const handleSubmitPhoneNumber = (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setSuccessful(null);
+
+        authentication.updatePhoneNumber(authentication.getCurrentUser().id,phoneNumberChanged).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+                setTogglePhone(false);
+                setPhoneNumber(phoneNumberChanged);
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMessage(resMessage);
+                setSuccessful(false);
+                setTogglePhone(false);
+            }
+        );
+    }
+
+
+    const handleSubmitLastName = (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setSuccessful(null);
+        authentication.updateNameOrLastName(authentication.getCurrentUser().id,firstName,lastName).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+                setToggleLastName(false);
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMessage(resMessage);
+                setSuccessful(false);
+                setToggleLastName(false);
+            }
+        );
+    }
+
+    const handleSubmitFirstName = (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setSuccessful(null);
+
+        authentication.updateNameOrLastName(authentication.getCurrentUser().id,firstName,lastName).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+                setToggleFirstName(false);
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMessage(resMessage);
+                setSuccessful(false);
+                setToggleFirstName(false);
+            }
+        );
     }
 
 
@@ -147,7 +239,7 @@ const AccountPage = () => {
                                     <TextField
                                         id="standard-text"
                                         label="Type email"
-                                        type="text"
+                                        type="email"
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -175,7 +267,7 @@ const AccountPage = () => {
                         {!toggleFirstName ?
                             <TableCell>{firstName}</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} onSubmit={handleSubmitFirstName}>
                                     <TextField
                                         id="standard-text"
                                         label="Update first name"
@@ -184,9 +276,9 @@ const AccountPage = () => {
                                             shrink: true,
                                         }}
                                         onChange={onChangeFirstName}
-                                        required={isNullOrUndefined(firstNameChanged)}
-                                        value={firstNameChanged}
-                                        error={firstNameChanged === null || firstNameChanged === ""}
+                                        required={isNullOrUndefined(firstName)}
+                                        value={firstName}
+                                        error={firstName === null || firstName === ""}
                                     />
                                     <Button
                                         type={"submit"}
@@ -207,7 +299,7 @@ const AccountPage = () => {
                         {!toggleLastName ?
                             <TableCell>{lastName}</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitEmail} */>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} onSubmit={handleSubmitLastName} >
                                     <TextField
                                         id="standard-text"
                                         label="Update last name"
@@ -216,9 +308,9 @@ const AccountPage = () => {
                                             shrink: true,
                                         }}
                                         onChange={onChangeLastName}
-                                        required={isNullOrUndefined(lastNameChanged)}
-                                        value={lastNameChanged}
-                                        error={lastNameChanged === null || lastNameChanged === ""}
+                                        required={isNullOrUndefined(lastName)}
+                                        value={lastName}
+                                        error={lastName === null || lastName === ""}
                                     />
                                     <Button
                                         type={"submit"}
@@ -238,7 +330,7 @@ const AccountPage = () => {
                         {!togglePhone ?
                             <TableCell>{phoneNumber}</TableCell> :
                             <TableCell>
-                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} /*onSubmit={handleSubmitPhoneNumber} */>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} onSubmit={handleSubmitPhoneNumber}>
                                     <TextField
                                         id="standard-text"
                                         label="Update phone number"
@@ -263,7 +355,58 @@ const AccountPage = () => {
                             } }/>
                         </IconButton>
                     </TableRow>
-
+                    <TableRow>
+                        <TableCell>Password</TableCell>
+                        {!togglePassword ?
+                            <TableCell>CHANGE YOUR PASSWORD</TableCell> :
+                            <TableCell>
+                                <form style={{display: "flex", flexDirection: "row", alignItems: "center"}} onSubmit={console.log(1)}>
+                                    <TextField
+                                        id="standard-text"
+                                        label="Your password"
+                                        type="password"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={onChangeCurrentPassword}
+                                        error={currentPassword === null || currentPassword === ""}
+                                        value={currentPassword}
+                                    />
+                                    <TextField
+                                        id="standard-text"
+                                        label="New password"
+                                        type="password"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={onChangeNewPassword}
+                                        error={newPassword === null || newPassword === "" || newPassword.length < 5}
+                                        value={newPassword}
+                                    />
+                                    <TextField
+                                        id="standard-text"
+                                        label="Confirm new password"
+                                        type="password"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={onChangeConfirmedNewPassword}
+                                        error={confirmNewPassword === null || confirmNewPassword !== newPassword}
+                                        value={confirmNewPassword}
+                                    />
+                                    <Button
+                                        type={"submit"}
+                                        color={"primary"}
+                                        startIcon={<CloudUpload />}>OK</Button>
+                                </form>
+                            </TableCell>
+                        }
+                        <IconButton aria-label="edit">
+                            <Edit onClick={() =>{
+                                setTogglePassword(!togglePassword);
+                            } }/>
+                        </IconButton>
+                    </TableRow>
                 </TableBody>
             </Table>
         </section>

@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from "react";
-import {BrowserRouter, useHistory, Route, Switch, Link, useParams} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useHistory} from "react-router-dom";
 import authentication from "../../../scripts/authentication";
 import Title from "../../../Title";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -7,17 +7,19 @@ import "./../../css/Reservations.scss"
 import {IconButton} from "@material-ui/core";
 
 
-const ForumCategoriesView = () => {
+
+
+
+const ForumAllTopicsView = () => {
 
     const history = useHistory();
-    const {category} = useParams();
 
     const [forumTopics, setForumTopics] = useState([])
 
 
     useEffect( ()=> {
 
-        fetch(`http://localhost:8080/topics/${category}`,{ headers: authentication.authenticationHeader() })
+        fetch(`http://localhost:8080/topics/`,{ headers: authentication.authenticationHeader() })
             .then((res) => res.json())
             .then((topics) => {
                 setForumTopics(topics);
@@ -28,10 +30,11 @@ const ForumCategoriesView = () => {
     return(
         <section className={"reservation-section"} style={{width: "100vw", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", overflowX: "scroll" }}>
             {forumTopics.length === 0 ? <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>
-                sorry, looks like there are no posts in this category right now </Title>  : null}
+                sorry, looks like there are no posts right now </Title>  :
+                <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>
+                    latest 15 topics </Title>}
             <table className="rwd-table" style={{fontFamily: 'Major Mono Display',width: "70vw"}}>
                 <tr>
-                    <th>id</th>
                     <th>category</th>
                     <th>title</th>
                     <th>creator</th>
@@ -43,11 +46,10 @@ const ForumCategoriesView = () => {
 
                     return(
                         <tr style={{background: "#38345e", color: "gold", fontWeight: "bold"}}>
-                            <td  data-th="id">{data.id}</td>
                             <td data-th="category">{data.category.toLowerCase()}</td>
                             <td data-th="title">{data.title.toLowerCase()}</td>
                             <td data-th="name">{data.userDetails.firstName.toLowerCase()} {data.userDetails.lastName.toLowerCase()}</td>
-                            <td data-th="date">{data.createdDate.replace('T',' ')}</td>
+                            <td data-th="date">{data.createdDate}</td>
                             <td data-th="date">{data.answersCount}</td>
                             <td data-th={"action"}>
                                 <IconButton aria-label="edit">
@@ -68,4 +70,4 @@ const ForumCategoriesView = () => {
     );
 
 };
-export default ForumCategoriesView;
+export default ForumAllTopicsView;

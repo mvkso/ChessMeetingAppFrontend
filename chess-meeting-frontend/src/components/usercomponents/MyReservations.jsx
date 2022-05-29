@@ -6,7 +6,6 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CancelReservationDialog from "./userdialogs/CancelReservationDialog";
 import {IconButton} from "@material-ui/core";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import axios from "axios";
 
 const MyReservations = (props) => {
 
@@ -82,7 +81,7 @@ const MyReservations = (props) => {
                 message={dialogMessage}
             />
         <section className="reservation-section" style={{height: "100vh"}}>
-            <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "your reservations" : "your tournaments"}</Title>
+            <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>{props.color === "secondary" ? "tournaments you booked" : "tournaments you created"}</Title>
             <table className={props.color === "secondary" ? "rwd2-table" : "rwd-table"} style={{fontFamily: 'Major Mono Display'}}>
                 <tr>
                     <th>description</th>
@@ -102,7 +101,7 @@ const MyReservations = (props) => {
                     <tr>
                         <td data-th="description">{data.Subject.toLowerCase()}</td>
                         <td data-th="city">{data.cityAddress.toLowerCase()}</td>
-                        <td data-th="when">{data.StartTime}</td>
+                        <td data-th="when">{data.StartTime.replace('T',' ')}</td>
                         <td data-th="rank">{data.minimumRank}</td>
                         <td data-th="slots">{data.slotsBooked}/{data.allSlots}</td>
                         <td data-th="join"><IconButton aria-label="edit">

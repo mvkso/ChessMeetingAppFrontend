@@ -5,7 +5,6 @@ import authentication from "../../scripts/authentication";
 import {useParams} from "react-router-dom";
 
 import AddIcon from '@mui/icons-material/Add';
-import {Edit} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 import BookReservation from "./userdialogs/BookReservation";
 
@@ -31,14 +30,12 @@ const SearchPage = (props) => {
 
 
     const handleCancel = () => {
-        alert(selectedId+" "+authentication.getCurrentUser().id)
         setSelectedId(undefined)
         window.location.reload()
 
     }
 
     const handleOk = () => {
-        alert(selectedId)
         return authentication.bookReservation(selectedId, authentication.getCurrentUser().id)
             .then(setSelectedId(undefined))
             .then(window.location.reload())
@@ -76,7 +73,7 @@ const SearchPage = (props) => {
                         <tr >
                             <td data-th="description" >{data.Subject.toLowerCase()}</td>
                             <td data-th="city">{data.cityAddress.toLowerCase()}</td>
-                            <td data-th="when">{data.StartTime}</td>
+                            <td data-th="when">{data.StartTime.replace('T',' ')}</td>
                             <td data-th="rank">{data.minimumRank}</td>
                             <td data-th="slots">{data.slotsBooked}/{data.allSlots}</td>
                             <td data-th="join"><IconButton aria-label="edit">

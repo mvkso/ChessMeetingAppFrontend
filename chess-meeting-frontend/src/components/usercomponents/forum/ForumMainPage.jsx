@@ -1,11 +1,9 @@
-import React, {useState, useRef} from "react";
-import {BrowserRouter, useHistory, Route, Switch, Link, useParams} from "react-router-dom";
-import authentication from "../../../scripts/authentication";
+import React from "react";
+import {useHistory} from "react-router-dom";
 import Title from "../../../Title";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import categories from "../../../scripts/categories";
 import "./../../css/Reservations.scss"
-import CancelIcon from "@mui/icons-material/Cancel";
 import {IconButton} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
@@ -25,6 +23,10 @@ const ForumMainPage = () => {
         history.push('/forum/my-topics')
     }
 
+    const handleLinkToLatestTopics = (e) => {
+        history.push('forum/recent')
+    }
+
     return(
         <section className={"reservation-section"} style={{width: "100vw", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", overflowX: "scroll" }}>
             <Title style={{fontFamily: 'Major Mono Display',color: "darkblue", fontWeight: "bold"}}>Welcome to chess forum</Title>
@@ -34,7 +36,11 @@ const ForumMainPage = () => {
                     </form>
                     &nbsp;
                     <form className="search-form" onSubmit={handleLinkToMyTopics}>
-                        <Button type='submit' variant={"contained"} color={"primary"} size={"large"}>see your topics</Button>
+                        <Button type='submit' variant={"contained"} color={"secondary"} size={"large"}>see your topics</Button>
+                    </form>
+                    &nbsp;
+                    <form className="search-form" onSubmit={handleLinkToLatestTopics}>
+                        <Button type='submit' variant={"contained"} color={"primary"} size={"large"}>see latest topics</Button>
                     </form>
                 </div>
 

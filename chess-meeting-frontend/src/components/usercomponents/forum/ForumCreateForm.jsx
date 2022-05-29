@@ -1,5 +1,4 @@
 import React,  {useState, useEffect} from "react";
-import { useHistory } from "react-router-dom";
 
 import "../../css/SignIn.css"
 import Title from "../../../Title";
@@ -12,8 +11,6 @@ import authentication from "../../../scripts/authentication";
 
 
 const ForumCreateForm = () => {
-
-    const history = useHistory();
 
 
     const [title, setTitle] = useState("");
@@ -100,6 +97,7 @@ const ForumCreateForm = () => {
                                     shrink: true,
                                 }}
                                 variant={"filled"}
+                                error={title.length > 32 || content.length > 1024}
                                 onChange={onChangeTitle}
                                 value={title}
                                 style={{ width: "auto" }}

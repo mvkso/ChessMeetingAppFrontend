@@ -31,7 +31,7 @@ const register = (email, password, confirmedPassword, name, lastName, phoneNumbe
 
 const update = (employeeId,oldEmail,newEmail,  firstName, lastName, oldPhoneNumber, newPhoneNumber) => {
 
-    return axios.put(`http://localhost:8080/${employeeId}`, {
+    return axios.put(urlHost+`${employeeId}`, {
         oldEmail,
         newEmail,
         firstName,
@@ -43,7 +43,7 @@ const update = (employeeId,oldEmail,newEmail,  firstName, lastName, oldPhoneNumb
 
 const changePassword = (userId,oldPassword,newPassword, confirmedNewPassword) => {
 
-    return axios.put(`http://localhost:8080/userDetails/${userId}/password`, {
+    return axios.put(urlHost+`userDetails/${userId}/password`, {
         oldPassword,
         newPassword,
         confirmedNewPassword
@@ -52,20 +52,20 @@ const changePassword = (userId,oldPassword,newPassword, confirmedNewPassword) =>
 
 
 const addPostfix = (postfix) => {
-    return axios.post('http://localhost:8080/postfix/addPostfix', {
+    return axios.post(urlHost+'postfix/addPostfix', {
         postfix
     }, {headers: authenticationHeader()});
 };
 
 const updatePostfix = (postfixId,oldPostfix,newPostfix) => {
-    return axios.put(`http://localhost:8080/postfix/updatePostfix/${postfixId}`, {
+    return axios.put(urlHost+`postfix/updatePostfix/${postfixId}`, {
         oldPostfix,
         newPostfix
     }, {headers: authenticationHeader()});
 };
 
 const updatePhoneNumber = (userId, newPhoneNumber) => {
-    return axios.put(`http://localhost:8080/userDetails/${userId}password`,
+    return axios.put(urlHost+`userDetails/${userId}/phoneNumber`,
         {
             newPhoneNumber
         },{headers: authenticationHeader()});
@@ -73,21 +73,16 @@ const updatePhoneNumber = (userId, newPhoneNumber) => {
 
 
 const updateEmail = (userId, email) => {
-    return axios.put(`http://localhost:8080/users/${userId}/email`,
+    return axios.put(urlHost+`users/${userId}/email`,
         {
             email
         },{headers: authenticationHeader()});
 };
 
-const updateRegion = (userId, region) => {
-    return axios.put(`http://localhost:8080/user/updateRegion/${userId}`,
-        {
-            region
-        },{headers: authenticationHeader()});
-};
+
 
 const updateNameOrLastName = (userId, name, lastName) => {
-    return axios.put(`http://localhost:8080/userDetails/${userId}/nameOrLastName`,
+    return axios.put(urlHost+`userDetails/${userId}/nameOrLastName`,
         {
             name,
             lastName
@@ -132,7 +127,7 @@ const isLoggedIn = () => {
 
 const createMeeting = (userId, DateTimeFrom, DateTimeTo, Subject, CityAddress, MinimumRank, Slots) => {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    return axios.post('http://localhost:8080/reservations/', {
+    return axios.post(urlHost+'reservations/', {
         userId,
         DateTimeFrom,
         DateTimeTo,
@@ -144,21 +139,21 @@ const createMeeting = (userId, DateTimeFrom, DateTimeTo, Subject, CityAddress, M
 }
 
 const bookReservation = (reservationId, userId) => {
-    return axios.put(`http://localhost:8080/reservations/book/${reservationId}`, {
+    return axios.put(urlHost+`reservations/book/${reservationId}`, {
         reservationId,
         userId
     }, {headers: authenticationHeader()})
 }
 
 const cancelOrDeleteReservation = (reservationId, userId) => {
-    return axios.put(`http://localhost:8080/reservations/cancel/${reservationId}`, {
+    return axios.put(urlHost+`reservations/cancel/${reservationId}`, {
         reservationId,
         userId
     }, {headers: authenticationHeader()})
 }
 
 const getPDF = (id) =>{
-    return fetch( `http://localhost:8080/pdf/download/${id}`, {
+    return fetch( urlHost+`pdf/download/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/pdf',
@@ -167,13 +162,24 @@ const getPDF = (id) =>{
 }
 
 const createTopic = (title, content, category, userId) => {
-    return axios.post(`http://localhost:8080/topic/`, {
+    return axios.post(urlHost+`topic/`, {
         title,
         content,
         category,
         userId
     }, {headers: authenticationHeader()})
 }
+
+const addAnswer = (topicId, userId, content) => {
+    return axios.post(urlHost+`topic/answer/`, {
+        topicId,
+        userId,
+        content
+    }, {headers: authenticationHeader()})
+}
+
+
+
 
 
 
@@ -191,11 +197,11 @@ export default {
     changePassword,
     updatePhoneNumber,
     updateEmail,
-    updateRegion,
     updateNameOrLastName,
     createMeeting,
     bookReservation,
     cancelOrDeleteReservation,
     getPDF,
-    createTopic
+    createTopic,
+    addAnswer,
 };

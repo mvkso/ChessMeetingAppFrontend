@@ -1,20 +1,13 @@
-import React,  {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React,  {useState} from "react";
 
-import Authentication from "../../scripts/authentication";
+
 import "../css/SignIn.css"
 import Title from "../../Title";
 import {TextField} from "@material-ui/core";
 import {Alert, Autocomplete} from "@material-ui/lab";
-import {isNullOrUndefined} from "@syncfusion/ej2-base";
-import {wait} from "@testing-library/react";
 import authentication from "../../scripts/authentication";
 
 const CreateForm = () => {
-
-    const history = useHistory();
-
 
     const [city, setCity] = useState("");
     const [subject, setSubject] = useState("");
@@ -70,15 +63,15 @@ const CreateForm = () => {
                     },
                     (error)=>{
                         setSuccessful(false)
-                        setMessage("Error")
-                        alert("EROR")
+                            setMessage("Error")
+                        alert("ERROR")
 
                     }
                 )
         }else {
             setSuccessful(false)
             setMessage("Cant create a meeting")
-            alert("Error cos tam")
+            alert("Error")
         }
 
     }
@@ -175,7 +168,7 @@ const CreateForm = () => {
 
                         </div>
                         <br/>
-                        <button id="submitButton" type='submit' style={{backgroundColor: "#5b5cff"}}>create a meeting</button>
+                        <button id="submitButton" type='submit' style={{backgroundColor: "#5b5cff"}}>create an event</button>
                     </form>
                 </div>
             </div>

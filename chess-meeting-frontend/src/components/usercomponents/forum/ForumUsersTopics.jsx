@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from "react";
-import {BrowserRouter, useHistory, Route, Switch, Link, useParams} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useHistory} from "react-router-dom";
 import authentication from "../../../scripts/authentication";
 import Title from "../../../Title";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -7,9 +7,6 @@ import "./../../css/Reservations.scss"
 import CancelIcon from "@mui/icons-material/Cancel";
 import {IconButton} from "@material-ui/core";
 import axios from "axios";
-
-
-
 
 
 const ForumUsersTopics = () => {
@@ -38,7 +35,7 @@ const ForumUsersTopics = () => {
                 sorry, looks like you dont have any posts created </Title>  : null}
             <table className="rwd-table" style={{fontFamily: 'Major Mono Display',width: "70vw"}}>
                 <tr>
-                    <th>id</th>
+                    {/*<th>id</th>*/}
                     <th>category</th>
                     <th>title</th>
                     <th>creator</th>
@@ -51,11 +48,11 @@ const ForumUsersTopics = () => {
 
                     return(
                         <tr style={{background: "#38345e", color: "gold", fontWeight: "bold"}}>
-                            <td  data-th="id">{data.id}</td>
+                            {/*<td  data-th="id">{data.id}</td>*/}
                             <td data-th="category">{data.category.toLowerCase()}</td>
                             <td data-th="title">{data.title.toLowerCase()}</td>
                             <td data-th="name">{data.userDetails.firstName.toLowerCase()} {data.userDetails.lastName.toLowerCase()}</td>
-                            <td data-th="date">{data.createdDate}</td>
+                            <td data-th="date">{data.createdDate.replace('T',' ')}</td>
                             <td data-th="count">{data.answersCount}</td>
                             <td data-th={"action"}>
                                 <IconButton aria-label="edit">
@@ -66,7 +63,10 @@ const ForumUsersTopics = () => {
                             <td data-th={"delete"}>
                                 <IconButton aria-label="edit">
                                     <CancelIcon color={"white"} style={{color: "white"}} onClick={() =>{
-
+                                        return axios.delete(`http://localhost:8080/topic/delete`, {
+                                         data: { topicId: data.id }
+                                        }, {headers: authentication.authenticationHeader()})
+                                            .then(window.location.reload())
                                     } }/>
                                 </IconButton></td>
                         </tr>

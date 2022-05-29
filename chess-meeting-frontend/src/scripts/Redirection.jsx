@@ -10,7 +10,7 @@ export default function Redirection(props) {
 
 
     if (authentication.isLoggedIn() && authentication.hasRole("ADMIN")) {
-        return <Redirect to="/adminPanel"/>
+        return <Redirect to="/admin"/>
     }
 
     if (authentication.isLoggedIn() && authentication.hasRole("USER")) {
@@ -23,3 +23,4 @@ export default function Redirection(props) {
 
 
 }
+

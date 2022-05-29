@@ -3,16 +3,11 @@ import {useHistory} from "react-router-dom";
 import Authentication from "../scripts/authentication";
 import "./css/SignIn.css"
 import Title from "../Title";
-import {Alert, Autocomplete} from "@material-ui/lab";
+import {Alert} from "@material-ui/lab";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import CheckIcon from '@mui/icons-material/Check';
 
 const SignUp = (props) => {
-
-    /*
-    Login component.
-     */
 
     const history = useHistory();
     const [email, setEmail] = useState("");
@@ -79,9 +74,6 @@ const SignUp = (props) => {
     }
 
 
-    // const getCurrentUser = () => {
-    //     return JSON.parse(sessionStorage.getItem("user"));
-    // };
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -89,7 +81,7 @@ const SignUp = (props) => {
             () => {
                 props.setLoggedUser(Authentication.getCurrentUser());
                 const user = JSON.parse(sessionStorage.getItem('user'));
-                user.userType === "ADMIN" ? history.push("/adminPanel") : history.push("/home")
+                user.userType === "ADMIN" ? history.push("/admin") : history.push("/home")
                 window.location.reload();
 
             },
@@ -120,8 +112,6 @@ const SignUp = (props) => {
                     (response) => {
                         setMessage(response.data.message);
                         setSuccessful(true);
-                        //history.push("/adminPanel/employees");
-                        // window.location.reload();
                         setFirstName("");
                         setLastName("");
                         setRegisterEmail("");
@@ -148,12 +138,14 @@ const SignUp = (props) => {
     return(
         <section className="signin-section" >
 
-            <div class="login-page" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "-2em"}}>
+            <div class="login-page" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "-5em"}}>
                 <Title style={{fontFamily: 'Major Mono Display',color: "rgb(1,56,72)",
-                    fontWeight: "bold", fontSize: "2.5em", paddingBottom: "1em"}}>
-                   chess meeting app</Title>
+                    fontWeight: "bold", fontSize: "2.5em"}}>
+                   chessy™</Title>
                 <div className="login-banner">
-
+                    <Title style={{fontFamily: 'Major Mono Display',color: "white",
+                        fontWeight: "bold", fontSize: "1em", marginTop: "-10px",  paddingBottom: "1em"}}>
+                        be a part of chess community</Title>
                 </div>
                 <div class="form-login">
 
@@ -164,8 +156,8 @@ const SignUp = (props) => {
                     <form class="login-form" style={{display: "flex", flexDirection: "column"}} onSubmit={handleLogin}>
                         <TextField
                             id="standard-text"
-                            label="Type email"
-                            type="text"
+                            label="email"
+                            type="email"
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -177,7 +169,7 @@ const SignUp = (props) => {
                         <br/>
                         <TextField
                             id="standard-text"
-                            label="Type password"
+                            label="password"
                             type="password"
                             InputLabelProps={{
                                 shrink: true,
@@ -197,8 +189,8 @@ const SignUp = (props) => {
                         {successful === false && message !== "" && <Alert severity="error">{message}</Alert>}
                         <TextField
                             id="standard-text"
-                            label="Type email"
-                            type="text"
+                            label="email"
+                            type="email"
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -212,7 +204,7 @@ const SignUp = (props) => {
                         />
                         <TextField
                             id="standard-text"
-                            label="Type name"
+                            label="name"
                             type="text"
                             InputLabelProps={{
                                 shrink: true,
@@ -226,7 +218,7 @@ const SignUp = (props) => {
                         />
                         <TextField
                             id="standard-text"
-                            label="Type last name"
+                            label="last name"
                             type="text"
                             InputLabelProps={{
                                 shrink: true,
@@ -253,7 +245,7 @@ const SignUp = (props) => {
                         />
                         <TextField
                             id="standard-text"
-                            label="Type password"
+                            label="password"
                             type="password"
                             InputLabelProps={{
                                 shrink: true,
